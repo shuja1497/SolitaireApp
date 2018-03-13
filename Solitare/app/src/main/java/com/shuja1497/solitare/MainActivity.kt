@@ -17,6 +17,7 @@ fun View.getResIdForCard(card: Card): Int {
 class MainActivity : AppCompatActivity() , GameView {
     var deckView: DeckView? = null
     var wastePileView: WastePileView? = null
+    val foundationPileViews: Array<FoundationPileView?> = arrayOfNulls(4)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() , GameView {
                 wastePileView = wastePileView().lparams(cardWidth, cardHeight)
                 view().lparams(cardWidth, 0) // for a space btwn waste pile and foundation pile
                 for (i in 0..3){
-                    imageView(imageResource=emptyPileDrawable).lparams(cardWidth, cardHeight)// waste pile
+//                    imageView(imageResource=emptyPileDrawable).lparams(cardWidth, cardHeight)// waste pile
+                    foundationPileViews[i] = foundationPileView(i).lparams(cardWidth, cardHeight)
                 }
             }
             linearLayout {
@@ -52,5 +54,8 @@ class MainActivity : AppCompatActivity() , GameView {
     override fun update(model: GameModel) {
         deckView!!.update()
         wastePileView!!.update()
+        foundationPileViews.forEach {
+            it!!.update()
+        }
     }
 }
