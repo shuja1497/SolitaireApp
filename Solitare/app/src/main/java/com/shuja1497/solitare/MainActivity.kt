@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         button_counter.setOnClickListener{
             counter++
             counterTextView.text = counter.toString()
+//            counterTextView.setText(counter.toString())
         }
     }
 }
