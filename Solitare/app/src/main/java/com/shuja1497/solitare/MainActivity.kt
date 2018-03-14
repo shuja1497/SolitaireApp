@@ -1,6 +1,6 @@
 package com.shuja1497.solitare
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,6 +13,12 @@ fun View.getResIdForCard(card: Card): Int {
     return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
 }
 
+//making card width and height . an extension func of Context class
+// leaving 4dp on left and right and having 7 cards .
+val Context.cardWidth : Int get() = (displayMetrics.widthPixels - dip(8))/7
+val Context.cardHeight get()= cardWidth * (190/140) // must be in same ratio as in the resource folder.
+
+
 // implementing game view and its method
 class MainActivity : AppCompatActivity() , GameView {
     var deckView: DeckView? = null
@@ -24,10 +30,6 @@ class MainActivity : AppCompatActivity() , GameView {
 
         GamePresenter.setGameView(this)
         GameModel.resetGame() // setting up the game .
-
-        // leaving 4dp on left and right and having 7 cards .
-        val cardWidth = (displayMetrics.widthPixels - dip(8))/7
-        val cardHeight = cardWidth * (190/140) // must be in same ratio as in the resource folder.
 
         //linear layout with vertical orientation
         verticalLayout {
