@@ -1,1 +1,1 @@
-# SolitareApp
+# SolitaireApp
