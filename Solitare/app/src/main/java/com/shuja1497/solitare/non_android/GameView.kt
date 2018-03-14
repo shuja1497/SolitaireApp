@@ -5,5 +5,5 @@ package com.shuja1497.solitare
  */
 interface GameView {
     // any class that implements this interface will be notified when the model updates
-    fun update(model: GameModel = GameModel)
+    fun update()
 }

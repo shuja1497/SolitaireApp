@@ -3,6 +3,8 @@ package com.shuja1497.solitare
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import org.jetbrains.anko.*
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() , GameView {
     var deckView: DeckView? = null
     var wastePileView: WastePileView? = null
     val foundationPileViews: Array<FoundationPileView?> = arrayOfNulls(4)
+    val tableauPileViews: Array<TableauPileView?> = arrayOfNulls(7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +52,35 @@ class MainActivity : AppCompatActivity() , GameView {
                 }
             }
             linearLayout {
+                for (i in 0..6){
+                    tableauPileViews[i] = tableauPileView(i).lparams(cardWidth, matchParent)
+                }
+            }.lparams{
+                height = matchParent
+                topMargin = cardHeight/2
             }
         }
     }
 
-    override fun update(model: GameModel) {
+    override fun update() {
         deckView!!.update()
         wastePileView!!.update()
         foundationPileViews.forEach {
             it!!.update()
         }
+        tableauPileViews.forEach {
+            it!!.update()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.add("Start Over")
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        GameModel.resetGame()
+        update()
+        return true
     }
 }
